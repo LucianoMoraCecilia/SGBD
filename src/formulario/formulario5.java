@@ -1,6 +1,8 @@
 package formulario;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +36,16 @@ public class formulario5 extends JFrame {
     private JLabel consultaAEjecutar;
 
     public formulario5(String usuario, String contrasena, String host, String puerto, String nombreBase) {
+    	
+   	 // Cargar la imagen del ícono
+       ImageIcon iconoVentana = new ImageIcon("C:\\Users\\cecil\\OneDrive\\Documentos\\7 SEMESTRE\\OSCAR\\Formulario\\fondo.png");
+
+       // Obtener la imagen del ImageIcon
+       Image imagenIcono = iconoVentana.getImage();
+
+       // Establecer la imagen como ícono de la ventana
+       setIconImage(imagenIcono);
+       
         this.nombreBase = nombreBase;
         
         ImageIcon registrarIcon = new ImageIcon("registrar.png");
@@ -73,6 +85,24 @@ public class formulario5 extends JFrame {
                 cargarDatosDeTabla((String) cboTablas.getSelectedItem());
             }
         });
+        
+        tablaColumnas.getTableHeader().setBackground(new Color(164, 255, 248 ));
+        tablaColumnas.getTableHeader().setForeground(Color.BLACK);
+        tablaColumnas.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        tablaColumnas.setSelectionBackground(new Color(140, 207, 234));
+        tablaColumnas.setSelectionForeground(Color.BLACK);
+        tablaColumnas.setFont(new Font("Arial", Font.BOLD, 12));
+
+        // Estilo para el JComboBox
+        cboTablas.setBackground(new Color(164, 255, 248));
+        cboTablas.setForeground(Color.BLACK);
+        cboTablas.setFont(new Font("Arial", Font.BOLD, 14));
+        consultaAEjecutar.setFont(new Font("Arial", Font.BOLD, 14));
+
+
+        // Estilo para el JScrollPane
+        scrollPane.setBorder(new LineBorder(new Color(196, 147, 245 ), 1));
+
 
         // Personalizar la cabecera de la tabla para permitir la selección de columnas
         JTableHeader header = tablaColumnas.getTableHeader();
@@ -87,7 +117,8 @@ public class formulario5 extends JFrame {
         });
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBackground(new Color(100, 136, 194));
+        buttonPanel.setBackground(new Color(140, 207, 234));
+        
         
         // Crear un botón para registrar los datos
         JButton btnRegistrar = new JButton("Registrar",registrarIcon);
@@ -98,6 +129,7 @@ public class formulario5 extends JFrame {
             }
         });
         buttonPanel.add(btnRegistrar);
+        setButtonStyles(btnRegistrar);
         
         // Crear un botón para modificar los datos
         btnModificar = new JButton("Modificar", modificarIcon);
@@ -108,6 +140,7 @@ public class formulario5 extends JFrame {
             }
         });
         buttonPanel.add(btnModificar);
+        setButtonStyles(btnModificar);
 
         // Crear un botón para eliminar los datos
         btnEliminar = new JButton( "Eliminar", eliminarIcon);
@@ -121,6 +154,7 @@ public class formulario5 extends JFrame {
             }
         });
         buttonPanel.add(btnEliminar);
+        setButtonStyles(btnEliminar);
 
         // Crear un botón para describir la tabla
         JButton btnDescribir = new JButton("Consultar ", consultarIcon);
@@ -131,6 +165,7 @@ public class formulario5 extends JFrame {
             }
         });
         buttonPanel.add(btnDescribir);
+        setButtonStyles(btnDescribir);
         
         queryTextField = new JTextField();
         queryTextField.setBounds(25, 390, 700, 30);
@@ -184,11 +219,11 @@ public class formulario5 extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        panelPrincipal.setBackground(new Color(100, 136, 194));
+        panelPrincipal.setBackground(new Color(140, 207, 234));
         
      // Crear un panel personalizado con color de fondo
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(100, 136, 194)); // Personalizar el color (R, G, B)
+        panel.setBackground(new Color(140, 207, 234)); // Personalizar el color (R, G, B)
         panel.setLayout(null); // Usar un diseño nulo para posicionar los componentes manualmente       
         
         panelPrincipal.add(buttonPanel, BorderLayout.SOUTH);
@@ -206,6 +241,24 @@ public class formulario5 extends JFrame {
         setContentPane(panelPrincipal);
         
         
+
+    }
+    
+    private void setButtonStyles(JButton button) {
+        // Establecer el color de fondo
+        button.setBackground(new Color(140, 207, 234));
+
+        // Establecer el color de texto
+        button.setForeground(Color.BLACK);
+
+        // Establecer el borde
+        button.setBorder(new LineBorder(new Color(140, 207, 234), 1));
+
+        // Establecer el margen interno
+        button.setMargin(new Insets(10, 15, 10, 15));
+
+        // Establecer la fuente
+        button.setFont(new Font("Arial", Font.BOLD, 16));
 
     }
 

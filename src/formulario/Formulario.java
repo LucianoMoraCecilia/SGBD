@@ -25,7 +25,7 @@ public class Formulario {
         frame.setSize(800, 600); // Tamaño del frame
         frame.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 
-        Color colorPersonalizado = new Color(217, 160, 236);
+        Color colorPersonalizado = new Color(140, 207, 234);
      
         
         // Crear la barra de menú
@@ -33,13 +33,20 @@ public class Formulario {
 
         // Crear un menú "Archivo"
         JMenu menuArchivo = new JMenu("MENÚ");
-        JMenuItem itemAbrir = new JMenuItem("Conectar a base de datos");
-        JMenuItem itemGuardar = new JMenuItem("Crear base de datos");
-        JMenuItem itemTabla = new JMenuItem("Crear Tablas");
+        
+        ImageIcon iconoConexion = new ImageIcon("conexion.png");
+     // Redimensionar la imagen al tamaño deseado ( 25*25 píxeles)
+        Image imagenRedimensionada = iconoConexion.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+
+        // Crear una nueva instancia de ImageIcon con la imagen redimensionada
+        ImageIcon iconoRedimensionado = new ImageIcon(imagenRedimensionada);
+        
+        
+        
+        JMenuItem itemAbrir = new JMenuItem("Conectar a base de datos", iconoRedimensionado);
+        
         menuArchivo.add(itemAbrir);
-       menuArchivo.add(itemGuardar);
-    //    menuArchivo.addSeparator();
-        menuArchivo.add(itemTabla);
+      
 
         // Agregar el menú "Archivo" a la barra de menú
         menuBar.add(menuArchivo);
@@ -55,7 +62,7 @@ public class Formulario {
                 // Crear y configurar el segundo formulario (formulario2)
                 formulario2 segundoFormulario = new formulario2();
                 segundoFormulario.setVisible(true); // Mostrar el segundo formulario
-                frame.dispose();
+               
             }
         });
         
@@ -76,7 +83,6 @@ public class Formulario {
 
         // Configurar el gestor de diseño del frame como GridBagLayout
         frame.setLayout(new GridBagLayout());
-        
     
 
         // Crear restricciones para el panel1

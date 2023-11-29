@@ -1,6 +1,7 @@
 package formulario;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,19 @@ public class formulario2 extends JFrame {
     private DefaultListModel<String> listModel;
     private Connection conexion;
 
+
+
     public formulario2() {
+    	
+    	 // Cargar la imagen del ícono
+        ImageIcon iconoVentana = new ImageIcon("C:\\Users\\cecil\\OneDrive\\Documentos\\7 SEMESTRE\\OSCAR\\Formulario\\fondo.png");
+
+        // Obtener la imagen del ImageIcon
+        Image imagenIcono = iconoVentana.getImage();
+
+        // Establecer la imagen como ícono de la ventana
+        setIconImage(imagenIcono);
+        
         // Configurar el título y el tamaño de la ventana
         setTitle("CONECTAR A BASE DE DATOS");
         setSize(800, 600);
@@ -33,6 +46,7 @@ public class formulario2 extends JFrame {
 
         // Crear un menú "Archivo"
         JMenu menuArchivo = new JMenu("MENÚ");
+        
         
         ImageIcon iconoCrearBD = new ImageIcon("crear.png"); 
         
@@ -62,6 +76,7 @@ public class formulario2 extends JFrame {
         JMenuItem itemCrearTabla = new JMenuItem("Crear Tablas", iconoAddtabla);
         JMenuItem itemAddDatos = new JMenuItem("Insertar Datos", iconoDatos);
              
+        
         menuArchivo.add(itemCrearBD);        
         menuArchivo.add(itemCrearTabla);
         menuArchivo.add(itemAddDatos);
@@ -71,7 +86,7 @@ public class formulario2 extends JFrame {
 
         // Configurar el frame para usar la barra de menú
         setJMenuBar(menuBar);
-        
+
     
         itemCrearBD.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -80,7 +95,17 @@ public class formulario2 extends JFrame {
                 String host = txtHost.getText();
                 String puerto = txtPuerto.getText();
                 String nombreBase = listaBasesDeDatos.getSelectedValue();
-                llenarListaBasesDeDatos(conexion);
+             //   llenarListaBasesDeDatos(conexion);
+                
+                if (usuario.isEmpty() || contrasena.isEmpty() || host.isEmpty() || puerto.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de crear la base de datos.");
+                    return;
+                }
+
+                if (conexion == null) {
+                    JOptionPane.showMessageDialog(null, "Por favor, establezca una conexión antes de intentar crear la base de datos.");
+                    return;
+                }
                 
                 // Crear una instancia del formulario3 y pasar la conexión
                 formulario3 nuevoFormulario = new formulario3(usuario, contrasena, host, puerto, nombreBase);
@@ -97,7 +122,7 @@ public class formulario2 extends JFrame {
                  String puerto = txtPuerto.getText();
                  String nombreBase = listaBasesDeDatos.getSelectedValue();
 
-                 if (nombreBase.isEmpty()) {
+                 if (nombreBase == null) {
                      JOptionPane.showMessageDialog(null, "Por favor, seleccione una base de datos primero.");
                      return;
                  }
@@ -118,7 +143,7 @@ public class formulario2 extends JFrame {
                  String puerto = txtPuerto.getText();
                  String nombreBase = listaBasesDeDatos.getSelectedValue();
 
-                 if (nombreBase.isEmpty()) {
+                 if (nombreBase == null) {
                      JOptionPane.showMessageDialog(null, "Por favor, seleccione una base de datos primero.");
                      return;
                  }
@@ -135,15 +160,21 @@ public class formulario2 extends JFrame {
      // Crear un panel para organizar los componentes
         JPanel panel = new JPanel(new GridLayout(0,1)); 
         panel.setPreferredSize(new Dimension(400, 600));
-        Color colorPanel = new Color(100, 136, 194);
+        Color colorPanel = new Color(140, 207, 234);
         panel.setBackground(colorPanel);
         
         JPanel panel2 = new JPanel(new BorderLayout());
         panel2.setPreferredSize(new Dimension(300, 600));
-       Color colorPanel2 = new Color(226, 241, 240);
+       Color colorPanel2 = new Color(255, 255, 255);
       panel2.setBackground(colorPanel2);
         
      // Etiquetas
+      
+   // Crear una nueva fuente con el nombre, estilo y tamaño deseados
+      Font nuevaFuente = new Font("Arial", Font.BOLD, 16);
+
+      Font nuevaFuente2 = new Font("Arial", Font.BOLD, 14);
+      
       
       ImageIcon usuarioIcon = new ImageIcon("user.png");
       ImageIcon contrasenaIcon = new ImageIcon("contra.png"); 
@@ -162,6 +193,11 @@ public class formulario2 extends JFrame {
       JLabel lblPuerto = new JLabel("Puerto:");
       lblPuerto.setIcon(puertoIcon);
        
+   // Aplicar la nueva fuente a las etiquetas
+      lblUsuario.setFont(nuevaFuente);
+      lblContrasena.setFont(nuevaFuente);
+      lblHost.setFont(nuevaFuente);
+      lblPuerto.setFont(nuevaFuente);
 
         
         // Cajas de texto
@@ -171,27 +207,48 @@ public class formulario2 extends JFrame {
         txtPuerto = new JTextField(10);       
         
 
-        // Botones
+     // Aplicar la nueva fuente y centrar el texto horizontalmente
+        txtUsuario.setFont(nuevaFuente2);
+        txtUsuario.setHorizontalAlignment(JTextField.CENTER);
+
+        txtContrasena.setFont(nuevaFuente2);
+        txtContrasena.setHorizontalAlignment(JTextField.CENTER);
+
+        txtHost.setFont(nuevaFuente2);
+        txtHost.setHorizontalAlignment(JTextField.CENTER);
+
+        txtPuerto.setFont(nuevaFuente2);
+        txtPuerto.setHorizontalAlignment(JTextField.CENTER);
+        
+     // Botones
         JButton btnTest = new JButton("Test");
         JButton btnConectar = new JButton("Conectar");
         JButton btnUsarBD = new JButton("Usar BD");
         JButton btnActu = new JButton("");
-        
+
+        // Aplicar estilos a los botones
+        setButtonStyles(btnTest);
+        setButtonStyles(btnConectar);
+        setButtonStyles(btnUsarBD);
+        setButtonStyles(btnActu);
+
+        // Iconos para los botones
         ImageIcon testIcon = new ImageIcon("test.png");
-        btnTest = new JButton("Test", testIcon);
-
         ImageIcon conectarIcon = new ImageIcon("conectar.png");
-        btnConectar = new JButton("Conectar", conectarIcon);
-
         ImageIcon usarBDIcon = new ImageIcon("usarbd.png");
-        btnUsarBD = new JButton("Usar BD", usarBDIcon);
-        
         ImageIcon actuIcon = new ImageIcon("actu.png");
-        btnActu = new JButton("", actuIcon);
 
+        // Asignar iconos a los botones
+        btnTest.setIcon(testIcon);
+        btnConectar.setIcon(conectarIcon);
+        btnUsarBD.setIcon(usarBDIcon);
+        btnActu.setIcon(actuIcon);
+
+        Color colorFondoLista = new Color(255, 255, 255);
      // Crear el modelo de lista para la JList
         listModel = new DefaultListModel<>();
         listaBasesDeDatos = new JList<>(listModel);
+        listaBasesDeDatos.setBackground(colorFondoLista);
         
         // Agregar etiquetas y componentes al panel
         panel.add(lblUsuario);
@@ -204,11 +261,13 @@ public class formulario2 extends JFrame {
         panel.add(txtPuerto);
        
        // panel.add(cboBasesDeDatos);
-        panel2.add(listaBasesDeDatos); // Usar JScrollPane para la JList
+        panel2.add(new JScrollPane(listaBasesDeDatos)); // Usar JScrollPane para la JList
 
 
         // Crear un segundo panel para los botones
         JPanel panelBotones = new JPanel();
+        Color colorPanel3 = new Color(140, 207, 234);
+        panelBotones.setBackground(colorPanel3);
         
      // Agregar un ActionListener al botón "Test" para probar la conexión
         btnTest.addActionListener(new ActionListener() {
@@ -263,6 +322,25 @@ public class formulario2 extends JFrame {
 
         // Cierra la ventana cuando se hace clic en el botón de cierre
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+ 
+    }
+    private void setButtonStyles(JButton button) {
+        // Establecer el color de fondo
+        button.setBackground(new Color(140, 207, 234 ));
+
+        // Establecer el color de texto
+        button.setForeground(Color.BLACK);
+
+        // Establecer el borde
+        button.setBorder(new LineBorder(new Color(99, 196, 236), 1));
+
+        // Establecer el margen interno
+        button.setMargin(new Insets(10, 15, 10, 15));
+
+        // Establecer la fuente
+        button.setFont(new Font("Arial", Font.BOLD, 16));
+
     }
     
     private void testConnection(){
